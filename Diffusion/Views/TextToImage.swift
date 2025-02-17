@@ -15,7 +15,8 @@ import StableDiffusion
 /// This is because I didn't find a way for "Share" to show a Save option when running on macOS.
 struct ShareButtons: View {
     var image: CGImage
-    var name: String
+	var name: String
+	var seed1: UInt32
     
     var filename: String {
         name.replacingOccurrences(of: " ", with: "_")
@@ -92,7 +93,7 @@ struct ImageWithPlaceholder: View {
                         Rectangle().fill(.clear).overlay(
                             HStack {
                                 Spacer()
-                                ShareButtons(image: theImage, name: lastPrompt).padding(.trailing)
+															ShareButtons(image: theImage, name: lastPrompt, seed1:generation.seed).padding(.trailing)
                             }
                         )
                     }.frame(maxHeight: 25)

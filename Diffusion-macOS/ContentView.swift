@@ -14,6 +14,7 @@ import ImageIO
 struct ShareButtons: View {
     var image: CGImage
     var name: String
+		var seed1: UInt32
     
     var filename: String {
         name.replacingOccurrences(of: " ", with: "_")
@@ -27,7 +28,8 @@ struct ShareButtons: View {
         savePanel.title = "Save your image"
         savePanel.message = "Choose a folder and a name to store the image."
         savePanel.nameFieldLabel = "File name:"
-        savePanel.nameFieldStringValue = filename
+			//savePanel.nameFieldStringValue = filename
+				savePanel.nameFieldStringValue = filename + "[" + String(seed1) + "]"
 
         let response = savePanel.runModal()
         return response == .OK ? savePanel.url : nil
@@ -68,11 +70,11 @@ struct ContentView: View {
     func toolbar() -> any View {
         if case .complete(let prompt, let cgImage, _, _) = generation.state, let cgImage = cgImage {
             // TODO: share seed too
-            return ShareButtons(image: cgImage, name: prompt)
+					return ShareButtons(image: cgImage, name: prompt, seed1:generation.seed)
         } else {
             let prompt = DEFAULT_PROMPT
             let cgImage = NSImage(imageLiteralResourceName: "placeholder").cgImage(forProposedRect: nil, context: nil, hints: nil)!
-            return ShareButtons(image: cgImage, name: prompt)
+					return ShareButtons(image: cgImage, name: prompt, seed1:generation.seed)
         }
     }
     
