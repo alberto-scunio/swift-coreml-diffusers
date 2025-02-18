@@ -16,6 +16,8 @@ import StableDiffusion
 struct ShareButtons: View {
     var image: CGImage
 	var name: String
+	var posPromt: String
+	var negPromt: String
 	var seed1: UInt32
     
     var filename: String {
@@ -93,7 +95,11 @@ struct ImageWithPlaceholder: View {
                         Rectangle().fill(.clear).overlay(
                             HStack {
                                 Spacer()
-															ShareButtons(image: theImage, name: lastPrompt, seed1:generation.seed).padding(.trailing)
+															ShareButtons(image: theImage, 
+																				name: lastPrompt, 
+																				 posPromt: "", 
+																				 negPromt: "", 
+																				seed1:generation.seed).padding(.trailing)
                             }
                         )
                     }.frame(maxHeight: 25)

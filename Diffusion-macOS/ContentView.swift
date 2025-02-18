@@ -14,6 +14,8 @@ import ImageIO
 struct ShareButtons: View {
     var image: CGImage
     var name: String
+		var posPromt: String
+		var negPromt: String
 		var seed1: UInt32
     
     var filename: String {
@@ -70,11 +72,19 @@ struct ContentView: View {
     func toolbar() -> any View {
         if case .complete(let prompt, let cgImage, _, _) = generation.state, let cgImage = cgImage {
             // TODO: share seed too
-					return ShareButtons(image: cgImage, name: prompt, seed1:generation.seed)
+					return ShareButtons(image: cgImage, 
+															name: prompt, 
+															posPromt: "", 
+															negPromt: "", 
+															seed1:generation.seed)
         } else {
             let prompt = DEFAULT_PROMPT
             let cgImage = NSImage(imageLiteralResourceName: "placeholder").cgImage(forProposedRect: nil, context: nil, hints: nil)!
-					return ShareButtons(image: cgImage, name: prompt, seed1:generation.seed)
+					return ShareButtons(image: cgImage, 
+															name: prompt, 
+															posPromt: "", 
+															negPromt: "", 
+															seed1:generation.seed)
         }
     }
     
